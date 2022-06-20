@@ -18,7 +18,7 @@ const users: User[] = [
   {
     id: 3,
     name: "Ali",
-    image: "###",
+    image: "#",
   },
 ];
 
