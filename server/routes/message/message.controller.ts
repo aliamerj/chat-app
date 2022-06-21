@@ -2,15 +2,6 @@ import Message from "../../modules/message.module";
 import { Request, Response } from "express";
 import _ from "lodash";
 
-export const getAllMessage = async (req: Request, res: Response) => {
-  try {
-    const users = await Message.find({}).sort({ date: -1 });
-    return res.json(users);
-  } catch (error: any) {
-    return res.json(error.message);
-  }
-};
-
 export const postNewMessage = async (req: Request, res: Response) => {
   try {
     let messageInfo = _.pick(req.body, ["conversationId", "sender", "text"]);

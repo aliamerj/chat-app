@@ -12,10 +12,9 @@ db();
 
 const ClIENT_URL = "http://localhost:3000";
 const app = express();
-routes(app);
-
 app.use(helmet());
 app.use(cors({ origin: ClIENT_URL, credentials: true }));
+routes(app);
 
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () =>

@@ -19,24 +19,24 @@ const MessageBox = () => {
       <WrapperStyle>
         {message.map((message) =>
           message.from.id !== myIdUser ? (
-            <MessageContenterStyle key={message.id} own>
-              <MessageUtilsStyle own>{message.time}</MessageUtilsStyle>
+            <MessageContenterStyle key={message.id} own="true">
+              <MessageUtilsStyle own="true">{message.time}</MessageUtilsStyle>
               <MessageWrapperStyle>
-                <MessageText own>{message.message}</MessageText>
+                <MessageText own="true">{message.message}</MessageText>
               </MessageWrapperStyle>
-              <AvatarStyle own>
+              <AvatarStyle own="true">
                 <Avatar alt={message.from.name} src={message.from.image} />
               </AvatarStyle>
             </MessageContenterStyle>
           ) : (
-            <MessageContenterStyle key={message.id} own={false}>
-              <AvatarStyle own={false}>
+            <MessageContenterStyle key={message.id} own="false">
+              <AvatarStyle own="false">
                 <Avatar alt={message.from.name} src={message.from.image} />
               </AvatarStyle>
               <MessageWrapperStyle>
-                <MessageText own={false}>{message.message}</MessageText>
+                <MessageText own="false">{message.message}</MessageText>
               </MessageWrapperStyle>
-              <MessageUtilsStyle own={false}>{message.time}</MessageUtilsStyle>
+              <MessageUtilsStyle own="false">{message.time}</MessageUtilsStyle>
             </MessageContenterStyle>
           )
         )}

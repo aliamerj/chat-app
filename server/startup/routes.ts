@@ -4,6 +4,7 @@ import patch from "path";
 import RegisterRoute from "../routes/register/register.route";
 import UserRoute from "../routes/user/user.route";
 import MsessageRoute from "../routes/message/message.route";
+import conversationRoute from "../routes/conversation/conversation.route";
 
 export default function (app: express.Application) {
   app.use(express.json());
@@ -15,6 +16,7 @@ export default function (app: express.Application) {
   // });
 
   app.use("/", RegisterRoute);
-  app.use("/users", UserRoute);
+  app.use("/user", UserRoute);
   app.use("/message", MsessageRoute);
+  app.use("/conversation", conversationRoute);
 }

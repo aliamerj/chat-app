@@ -11,25 +11,25 @@ export const WrapperStyle = styled("div")(() => ({
 }));
 
 export const MessageContenterStyle = styled("div")(
-  ({ own }: { own: boolean }) => ({
+  ({ own }: { own: string }) => ({
     display: "flex",
 
-    justifyContent: own ? "flex-end" : "flex-start",
+    justifyContent: own === "true" ? "flex-end" : "flex-start",
   })
 );
-export const MessageText = styled("p")(({ own }: { own: boolean }) => ({
+export const MessageText = styled("p")(({ own }: { own: string }) => ({
   padding: "10px",
   borderRadius: "20px",
-  color: own ? "black" : "white",
+  color: own === "true" ? "black" : "white",
   maxWidth: "300px",
-  backgroundColor: own ? "rgb(245,241,241)" : "#1877f2",
+  backgroundColor: own === "true" ? "rgb(245,241,241)" : "#1877f2",
 }));
-export const MessageUtilsStyle = styled("p")(({ own }: { own: boolean }) => ({
+export const MessageUtilsStyle = styled("p")(({ own }: { own: string }) => ({
   fontSize: "12px",
   fontFamily: "Helvetica",
   textDecorationLine: "underline",
 
-  margin: own ? "auto 10px auto auto" : "auto auto auto 10px",
+  margin: own === "true" ? "auto 10px auto auto" : "auto auto auto 10px",
 }));
 
 export const MessageWrapperStyle = styled("div")(() => ({
@@ -37,6 +37,6 @@ export const MessageWrapperStyle = styled("div")(() => ({
   alignContent: "center",
   justifyContent: "flex-end",
 }));
-export const AvatarStyle = styled("div")(({ own }: { own: boolean }) => ({
-  margin: own ? "auto 10px 0 7px" : "0 7px",
+export const AvatarStyle = styled("div")(({ own }: { own: string }) => ({
+  margin: own === "true" ? "auto 10px 0 7px" : "0 7px",
 }));

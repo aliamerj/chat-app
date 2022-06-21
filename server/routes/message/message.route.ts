@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { getAllMessage, getUserMessage } from "./message.controller";
+import { getUserMessage, postNewMessage } from "./message.controller";
 
 const route = Router();
 
-route.get("/", getAllMessage);
+route.get("/", postNewMessage);
 route.post("/:conversationId", getUserMessage);
 
 export default route;
