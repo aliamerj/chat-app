@@ -6,6 +6,7 @@ export const ContainerStyle = styled("div")(() => ({
 export const WrapperStyle = styled("div")(() => ({
   display: "flex",
   justifyContent: "space-between",
+  flexWrap: "wrap",
 }));
 export const LeftStyle = styled("div")(() => ({
   flex: 1,
