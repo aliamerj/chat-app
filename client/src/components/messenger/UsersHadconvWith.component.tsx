@@ -5,8 +5,8 @@ import {
   StyledBadgeStyle,
   UsernameStyle,
   WrapperStyle,
-} from "../_Styles_/usersToChat.style";
-import message from "../__FAKE_DATA/message";
+} from "../../_Styles_/usersToChat.style";
+import message from "../../__FAKE_DATA/message";
 const isOnline = true;
 const myIdUser = 3;
 const UsersHadconvWith = () => {

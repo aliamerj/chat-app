@@ -1,4 +1,3 @@
-import expressError from "express-async-errors";
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -7,7 +6,7 @@ import config from "./startup/config";
 import db from "./startup/db";
 import routes from "./startup/routes";
 dotenv.config();
-expressError();
+
 config();
 db();
 

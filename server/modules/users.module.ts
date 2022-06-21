@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 interface UserType {
   name: string;
-  image: string;
+  image?: string;
 }
 
 const UserSchema = new mongoose.Schema<UserType>(
@@ -18,4 +18,4 @@ const UserSchema = new mongoose.Schema<UserType>(
   { timestamps: true }
 );
 
-export default mongoose.model("User", UserSchema);
+export default mongoose.model<UserType>("User", UserSchema);

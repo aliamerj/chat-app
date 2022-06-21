@@ -1,13 +1,13 @@
 import { Avatar } from "@mui/material";
 
-import users from "../__FAKE_DATA/users";
+import users from "../../__FAKE_DATA/users";
 import {
   AvatarsStyle,
   ContainerStyle,
   StyledBadgeStyle,
   UsernameStyle,
   WrapperStyle,
-} from "../_Styles_/usersToChat.style";
+} from "../../_Styles_/usersToChat.style";
 const isOnline = true;
 
 const UsersToChat = () => {

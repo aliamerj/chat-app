@@ -7,8 +7,8 @@ import {
   MessageUtilsStyle,
   MessageWrapperStyle,
   AvatarStyle,
-} from "../_Styles_/messageBox.style";
-import message from "../__FAKE_DATA/message";
+} from "../../_Styles_/messageBox.style";
+import message from "../../__FAKE_DATA/message";
 import MessageInput from "./MessageInput.component";
 
 const myIdUser = 3;

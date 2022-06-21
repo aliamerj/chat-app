@@ -7,9 +7,8 @@ import {
   RightStyle,
   SearchFriendStyle,
   WrapperStyle,
-} from "../_Styles_/messemger.style";
+} from "../../_Styles_/messemger.style";
 import MessageBox from "./MessageBox.component";
-import NavBar from "./navBar/NavBar";
 import UsersHadconvWith from "./UsersHadconvWith.component";
 import UsersToChat from "./UsersToChat.component";
 
