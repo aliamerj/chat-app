@@ -4,7 +4,7 @@ import _ from "lodash";
 
 export const postNewMessage = async (req: Request, res: Response) => {
   try {
-    let messageInfo = _.pick(req.body, ["conversationId", "sender", "text"]);
+    let messageInfo = _.pick(req.body, ["conversationId", "senderId", "text"]);
     const message = new Message(messageInfo);
     message.save();
     return res.status(200).json(message);

@@ -38,8 +38,10 @@ const UsersHadconvWith = () => {
 
         res.data.map(async (user) => {
           const friendId = user.members.find((id) => id !== userId);
-          const getFriend = await userRequest.get<User>("/user/" + friendId);
-          setFriends((state) => [...state, getFriend.data]);
+          if (friendId) {
+            const getFriend = await userRequest.get<User>("/user/" + friendId);
+            setFriends((state) => [...state, getFriend.data]);
+          }
         });
       } catch (error) {
         console.log(error);
@@ -51,7 +53,7 @@ const UsersHadconvWith = () => {
   return (
     <ContainerStyle>
       {friends.map((friend) => {
-        if (!filltes.includes(friend._id)) {
+        if (!filltes.includes(friend._id) && friend._id) {
           filltes.push(friend._id);
           return (
             <WrapperStyle key={friend._id}>

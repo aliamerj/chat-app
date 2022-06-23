@@ -1,7 +1,7 @@
 import mongoose, { SchemaDefinitionProperty } from "mongoose";
 interface MessageType {
   conversationId: SchemaDefinitionProperty<mongoose.Types.ObjectId>;
-  sender: SchemaDefinitionProperty<mongoose.Types.ObjectId>;
+  senderId: SchemaDefinitionProperty<mongoose.Types.ObjectId>;
   text: string;
 }
 
@@ -12,7 +12,7 @@ const MessageSchema = new mongoose.Schema<MessageType>(
       ref: "Conversation",
       required: true,
     },
-    sender: {
+    senderId: {
       type: mongoose.Types.ObjectId,
       ref: "User",
       required: true,
