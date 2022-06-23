@@ -7,21 +7,29 @@ interface User {
   updatedAt: string;
 }
 
-let initialUser: User | null = null;
+interface InitialUser {
+  userToChat: User[];
+}
+let initialState: InitialUser = {
+  userToChat: [],
+};
+
 if (localStorage.getItem("userToChat")) {
-  initialUser = JSON.parse(localStorage.getItem("userToChat") || "").userToChat;
+  initialState.userToChat = JSON.parse(
+    localStorage.getItem("userToChat") || ""
+  ).userToChat;
 }
 
 const userToChatSlice = createSlice({
   name: "userToChat",
-  initialState: initialUser,
+  initialState,
   reducers: {
     ADD_USER_TO_CHAT: (state, action: PayloadAction<User>) => {
-      state = action.payload;
+      state.userToChat.push({ ...action.payload });
       localStorage.setItem(
         "userToChat",
         JSON.stringify({
-          userToChat: state,
+          userToChat: state.userToChat,
         })
       );
     },
