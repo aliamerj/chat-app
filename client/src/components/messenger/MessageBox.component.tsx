@@ -13,16 +13,19 @@ import {
   AvatarStyle,
 } from "../../_Styles_/messageBox.style";
 import { Ali } from "../../__FAKE_DATA/apiData";
-import message from "../../__FAKE_DATA/message";
 import MessageInput from "./MessageInput.component";
+import { io, Socket } from "socket.io-client";
+interface ArrivalMessage {
+  senderId: string;
+  text: string;
+  createdAt: number;
+}
 
 interface Message {
   _id: string;
-  conversationId: string;
   senderId: string;
   text: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: number;
 }
 interface User {
   _id: string;
@@ -33,6 +36,10 @@ interface User {
 }
 
 const MessageBox = () => {
+  const [arrivalMessage, setArrivalMessage] = useState<ArrivalMessage | null>(
+    null
+  );
+  const socket = useRef<Socket>();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [message, setMessage] = useState<Message[]>([]);
   const [myFriend, setMyFriend] = useState<User>();
@@ -69,7 +76,34 @@ const MessageBox = () => {
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
+  useEffect(() => {
+    socket.current = io("http://localhost:1000");
+    socket.current.on("getMessage", (message) => {
+      setArrivalMessage({
+        senderId: message.senderId,
+        text: message.text,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
 
+  useEffect(() => {
+    arrivalMessage &&
+      conversation?.members.includes(arrivalMessage.senderId) &&
+      setMessage((prev) => [
+        ...prev,
+        {
+          senderId: arrivalMessage.senderId,
+          text: arrivalMessage.text,
+          createdAt: arrivalMessage.createdAt,
+          _id: "message_socket",
+        },
+      ]);
+  }, [arrivalMessage]);
+
+  const sendMessage = (message: Message) => {
+    setMessage((prev) => [...prev, message]);
+  };
   return (
     <ContainerStyle>
       {conversation ? (
@@ -111,7 +145,12 @@ const MessageBox = () => {
               )
             )}
           </WrapperStyle>
-          <MessageInput conversationId={conversationId} />
+          <MessageInput
+            conversationId={conversationId}
+            friendId={myFriend?._id}
+            socket={socket}
+            sendMessage={sendMessage}
+          />
         </>
       ) : (
         <span>start chatting </span>

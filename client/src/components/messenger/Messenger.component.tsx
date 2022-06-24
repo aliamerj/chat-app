@@ -11,6 +11,9 @@ import {
 import MessageBox from "./MessageBox.component";
 import UsersHadconvWith from "./UsersHadconvWith.component";
 import UsersToChat from "./UsersToChat.component";
+import { io, Socket } from "socket.io-client";
+import { useEffect, useState, useRef } from "react";
+import { Ali } from "../../__FAKE_DATA/apiData";
 
 const Messenger = () => {
   return (
