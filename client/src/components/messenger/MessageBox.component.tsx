@@ -12,9 +12,9 @@ import {
   MessageWrapperStyle,
   AvatarStyle,
 } from "../../_Styles_/messageBox.style";
-import { Ali } from "../../__FAKE_DATA/apiData";
 import MessageInput from "./MessageInput.component";
 import { io, Socket } from "socket.io-client";
+import { User } from "../../App";
 interface ArrivalMessage {
   senderId: string;
   text: string;
@@ -27,7 +27,7 @@ interface Message {
   text: string;
   createdAt: number;
 }
-interface User {
+interface UserFriend {
   _id: string;
   name: string;
   image: string;
@@ -35,14 +35,14 @@ interface User {
   updatedAt: string;
 }
 
-const MessageBox = () => {
+const MessageBox = ({ user }: { user: User }) => {
   const [arrivalMessage, setArrivalMessage] = useState<ArrivalMessage | null>(
     null
   );
   const socket = useRef<Socket>();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [message, setMessage] = useState<Message[]>([]);
-  const [myFriend, setMyFriend] = useState<User>();
+  const [myFriend, setMyFriend] = useState<UserFriend>();
   const conversation = useAppSelector(
     (state) => state.entities.conversation.conversation
   );
@@ -51,7 +51,7 @@ const MessageBox = () => {
     (state) => state.entities.userToChat.userToChat
   );
   const getUserToChatWith = () => {
-    const friendId = conversation?.members.find((id) => id !== Ali._id);
+    const friendId = conversation?.members.find((id) => id !== user._id);
     const friend = userToChat.find((friend) => friend._id === friendId);
     setMyFriend(friend);
   };
@@ -110,7 +110,7 @@ const MessageBox = () => {
         <>
           <WrapperStyle>
             {message.map((message) =>
-              message.senderId !== Ali._id ? (
+              message.senderId === user._id ? (
                 <MessageContenterStyle
                   key={message._id}
                   own="true"
@@ -133,7 +133,7 @@ const MessageBox = () => {
                   ref={scrollRef}
                 >
                   <AvatarStyle own="false">
-                    <Avatar alt={Ali.name} src={Ali.image} />
+                    <Avatar alt={user.name} src={user.image} />
                   </AvatarStyle>
                   <MessageWrapperStyle>
                     <MessageText own="false">{message.text}</MessageText>

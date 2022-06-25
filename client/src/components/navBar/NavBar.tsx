@@ -1,30 +1,32 @@
-import { AppBar, Container, Toolbar, Typography } from "@mui/material";
+import { Avatar } from "@mui/material";
+import { User } from "../../App";
+import { userRequest } from "../../requestMethods";
+import {
+  ContainerStyle,
+  DashboardListStyle,
+  DashboardItemListStyle,
+} from "../../_Styles_/NavBar/NavBar.style";
+import Logo from "./utils/Logo.util";
 
-const NavBar = () => {
+const NavBar = ({ user }: { user: User | null }) => {
+  const logout = () => {
+    window.open("http://localhost:5000/auth/logout", "_self");
+  };
   return (
-    <AppBar color="default" position="sticky" style={{ marginBottom: "20px" }}>
-      <Container maxWidth="xl">
-        <Toolbar>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            CHAT WITH
-          </Typography>
-        </Toolbar>
-      </Container>
-    </AppBar>
+    <ContainerStyle>
+      <Logo />
+      <DashboardListStyle>
+        <DashboardItemListStyle>
+          <Avatar src={user?.image} alt={user?.name} />
+        </DashboardItemListStyle>
+        <DashboardItemListStyle>{user?.name}</DashboardItemListStyle>
+        {user ? (
+          <DashboardItemListStyle onClick={logout}>
+            Logout
+          </DashboardItemListStyle>
+        ) : null}
+      </DashboardListStyle>
+    </ContainerStyle>
   );
 };
 

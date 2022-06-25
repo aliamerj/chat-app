@@ -9,31 +9,37 @@ import {
   WrapperStyle,
 } from "../../_Styles_/messemger.style";
 import MessageBox from "./MessageBox.component";
-import UsersHadconvWith from "./UsersHadconvWith.component";
-import UsersToChat from "./UsersToChat.component";
-import { io, Socket } from "socket.io-client";
-import { useEffect, useState, useRef } from "react";
-import { Ali } from "../../__FAKE_DATA/apiData";
+import AllUsersToChat from "./AllUsersToChat.component";
+import LastChatUsers from "./LastChatUsers.component";
 
-const Messenger = () => {
+interface User {
+  _id: string;
+  createdAt: string;
+  email: string;
+  image: string;
+  name: string;
+  updatedAt: string;
+}
+
+const Messenger = ({ user }: { user: User }) => {
   return (
     <ContainerStyle>
       <WrapperStyle>
         <LeftStyle>
           <ItemsContainerStyle>
-            <SearchFriendStyle placeholder="Search for friends" />
-            <UsersToChat />
+            <LastChatTitleStyle>Last Chat</LastChatTitleStyle>
+            <LastChatUsers user={user} />
           </ItemsContainerStyle>
         </LeftStyle>
         <CenterStyle>
           <ItemsContainerStyle>
-            <MessageBox />
+            <MessageBox user={user} />
           </ItemsContainerStyle>
         </CenterStyle>
         <RightStyle>
           <ItemsContainerStyle>
-            <LastChatTitleStyle>Last Chat</LastChatTitleStyle>
-            <UsersHadconvWith />
+            <SearchFriendStyle placeholder="Search for friends" />
+            <AllUsersToChat user={user} />
           </ItemsContainerStyle>
         </RightStyle>
       </WrapperStyle>

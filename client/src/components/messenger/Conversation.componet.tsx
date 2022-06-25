@@ -1,38 +1,31 @@
 import { useEffect, useState } from "react";
 import { userRequest } from "../../requestMethods";
-import { Ali } from "../../__FAKE_DATA/apiData";
-import users from "../../__FAKE_DATA/users";
 import {
   AvatarsStyle,
-  ContainerStyle,
   StyledBadgeStyle,
   UsernameStyle,
-  WrapperStyle,
 } from "../../_Styles_/usersToChat.style";
 import { Avatar } from "@mui/material";
 import { useAppDispatch } from "../../store/hooks";
 import { ADD_USER_TO_CHAT } from "../../store/userToChat.store/userToChatSlice";
+import { Conversation } from "./LastChatUsers.component";
+import { User } from "../../App";
 const isOnline = true;
-interface Conversation {
-  _id: string;
-  createdAt: string;
-  members: string[];
-  updatedAt: string;
-}
-interface User {
-  _id: string;
-  name: string;
-  image: string;
-  createdAt: string;
-  updatedAt: string;
-}
 
-const ConversationUser = ({ conversation }: { conversation: Conversation }) => {
+const ConversationUser = ({
+  conversation,
+  userAuth,
+}: {
+  conversation: Conversation;
+  userAuth: User | null;
+}) => {
   const [user, setuser] = useState<User | null>(null);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    const friendId = conversation.members?.find((member) => member !== Ali._id);
     const getFriend = async () => {
+      const friendId = conversation.members?.find(
+        (member) => member !== userAuth?._id
+      );
       try {
         const res = await userRequest.get("/user/" + friendId);
         setuser(res.data);
@@ -42,7 +35,8 @@ const ConversationUser = ({ conversation }: { conversation: Conversation }) => {
     };
     getFriend();
     if (user) dispatch(ADD_USER_TO_CHAT(user));
-  }, [conversation]);
+  }, []);
+
   return (
     <>
       <AvatarsStyle>
