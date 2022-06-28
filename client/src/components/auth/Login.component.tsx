@@ -1,67 +1,62 @@
+import "../../_Styles_/login.style/loginStyle.css";
+import Google from "../../_Styles_/login.style/images/icons/icon-google.png";
 import {
-  CenterStyle,
   ContainerStyle,
-  IconStyle,
+  FacebookButton,
+  FacebookStyle,
+  FieldContainerStyle,
+  FieldTitleStyle,
+  FormStyle,
+  GoogleButton,
+  ImageGoogleStyle,
   InputStyle,
-  Leftstyle,
-  LineStyle,
-  LoginButtonStyle,
-  LoginTitleStyle,
-  OrStyle,
-  Rightstyle,
-  SubmitStyle,
+  InputWrapperStyle,
+  LoginButton,
+  LoginButtonContainter,
+  SignWithStyle,
+  WrapperInterStyle,
   WrapperStyle,
-} from "../../_Styles_/loginPage.style";
+} from "../../_Styles_/login.style/loginPage.style";
 
 const LoginComponent = () => {
-  const google = () => {
-    window.open("http://localhost:5000/auth/google", "_self");
-  };
-
   return (
-    <div
-      style={{
-        alignContent: "center",
-      }}
-    >
-      <ContainerStyle>
-        <LoginTitleStyle>Choose a Login Method</LoginTitleStyle>
-        <WrapperStyle>
-          <Leftstyle>
-            <LoginButtonStyle method="Google" onClick={google}>
-              <IconStyle
-                src="https://raw.githubusercontent.com/safak/youtube/react-social-login/client/src/img/google.png"
-                alt="Login with google"
-              />
-              Google
-            </LoginButtonStyle>
-            <LoginButtonStyle method="Facebook">
-              <IconStyle
-                src="https://raw.githubusercontent.com/safak/youtube/react-social-login/client/src/img/facebook.png"
-                alt="Login with Facebook"
-              />
+    <ContainerStyle>
+      <WrapperStyle
+        style={{
+          backgroundImage: 'url("../../_Styles_/login.style/images/bg-01.jpg")',
+        }}
+      >
+        <WrapperInterStyle>
+          <FormStyle>
+            <SignWithStyle>Sign In With</SignWithStyle>
+            <FacebookButton href="#">
+              <FacebookStyle src="https://raw.githubusercontent.com/safak/youtube/react-social-login/client/src/img/facebook.png" />
               Facebook
-            </LoginButtonStyle>
-            <LoginButtonStyle method="Github">
-              <IconStyle
-                src="https://raw.githubusercontent.com/safak/youtube/react-social-login/client/src/img/github.png"
-                alt="Login with Github"
-              />
-              Github
-            </LoginButtonStyle>
-          </Leftstyle>
-          <CenterStyle>
-            <LineStyle />
-            <OrStyle>OR</OrStyle>
-          </CenterStyle>
-          <Rightstyle>
-            <InputStyle type="text" placeholder="Username" />
-            <InputStyle type="password" placeholder="passowrd" />
-            <SubmitStyle type="submit">Login</SubmitStyle>
-          </Rightstyle>
-        </WrapperStyle>
-      </ContainerStyle>
-    </div>
+            </FacebookButton>
+            <GoogleButton href="http://localhost:5000/auth/google">
+              <ImageGoogleStyle alt="GOOGLE" src={Google} />
+              Google
+            </GoogleButton>
+            <FieldContainerStyle>
+              <FieldTitleStyle>Username</FieldTitleStyle>
+            </FieldContainerStyle>
+            <InputWrapperStyle>
+              <InputStyle type="text" placeholder="Username" />
+            </InputWrapperStyle>
+
+            <FieldContainerStyle>
+              <FieldTitleStyle>Password</FieldTitleStyle>
+            </FieldContainerStyle>
+            <InputWrapperStyle>
+              <InputStyle type="password" placeholder="Username" />
+            </InputWrapperStyle>
+            <LoginButtonContainter>
+              <LoginButton>Sign In</LoginButton>
+            </LoginButtonContainter>
+          </FormStyle>
+        </WrapperInterStyle>
+      </WrapperStyle>
+    </ContainerStyle>
   );
 };
 
