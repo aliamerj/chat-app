@@ -1,5 +1,6 @@
 import { Conversation, User } from "../../Types/Types";
-import * as styles from "../../_Styles_/messemger.style";
+import "../../_Styles_/messenger/messenger.style.css";
+import * as styles from "../../_Styles_/messenger/messenger.style";
 import AllUsersToChat from "./AllUsersToChat.component";
 import { useState } from "react";
 import MessageBox from "./MessageBox.component";

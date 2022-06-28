@@ -11,7 +11,7 @@ import {
   MessageUtilsStyle,
   MessageWrapperStyle,
   AvatarStyle,
-} from "../../_Styles_/messageBox.style";
+} from "../../_Styles_/messenger/messageBox.style";
 import MessageInput from "./MessageInput.component";
 import { Conversation, Message, User } from "../../Types/Types";
 import {

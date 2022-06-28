@@ -7,7 +7,7 @@ import {
   TextareaStyle,
   SendButtonStyle,
   ContainerStyle,
-} from "../../_Styles_/messageInput.style";
+} from "../../_Styles_/messenger/messageInput.style";
 
 const MessageInput = ({
   conversationId,

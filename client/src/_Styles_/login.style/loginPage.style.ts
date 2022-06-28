@@ -93,6 +93,7 @@ export const FacebookButton = styled("a")(({ theme }) => ({
   },
   ":hover": {
     color: "#fff",
+    textDecoration: "none",
   },
   [theme.breakpoints.down("sm")]: {
     width: "100%",
@@ -141,6 +142,7 @@ export const GoogleButton = styled("a")(({ theme }) => ({
   },
   ":hover": {
     color: "black",
+    textDecoration: "none",
   },
   [theme.breakpoints.down("sm")]: {
     width: "100%",
@@ -180,6 +182,11 @@ export const InputStyle = styled("input")(() => ({
   background: "transparent",
   height: "60px",
   padding: "0 20px",
+  outline: "none",
+  border: "none",
+  ":focus": {
+    borderColor: "transparent",
+  },
 }));
 
 export const LoginButtonContainter = styled("div")(() => ({
@@ -203,6 +210,7 @@ export const LoginButton = styled("button")(() => ({
   fontSize: "20px",
   color: "#fff",
   lineHeight: 1.2,
+  cursor: "pointer",
 
   transition: "all 0.4s",
   position: "relative",

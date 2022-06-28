@@ -9,7 +9,7 @@ import {
   StyledBadgeStyle,
   UsernameStyle,
   WrapperStyle,
-} from "../../_Styles_/usersToChat.style";
+} from "../../_Styles_/messenger/usersToChat.style";
 const isOnline = true;
 const AllUsersToChat = ({
   setConversationHelper,
