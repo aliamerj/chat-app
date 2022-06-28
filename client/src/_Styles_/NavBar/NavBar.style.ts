@@ -1,7 +1,7 @@
 import { styled } from "@mui/material/styles";
 
 export const ContainerStyle = styled("div")(() => ({
-  height: "10vh",
+  height: "70px",
   backgroundColor: "#FAFAF0",
   display: "flex",
   alignItems: "center",

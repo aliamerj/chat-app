@@ -1,7 +1,7 @@
 import { Avatar } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
-import { userRequest } from "../../requestMethods";
 import { useAppSelector } from "../../store/hooks";
+import nextId from "react-id-generator";
 import { format } from "timeago.js";
 import {
   ContainerStyle,
@@ -13,117 +13,68 @@ import {
   AvatarStyle,
 } from "../../_Styles_/messageBox.style";
 import MessageInput from "./MessageInput.component";
-import { io, Socket } from "socket.io-client";
-import { User } from "../../App";
-interface ArrivalMessage {
-  senderId: string;
-  text: string;
-  createdAt: number;
-}
+import { Conversation, Message, User } from "../../Types/Types";
+import {
+  reciveMessageSocket,
+  sendMessageSocket,
+  socket,
+} from "./Utils/socketClient";
 
-interface Message {
-  _id: string;
-  senderId: string;
-  text: string;
-  createdAt: number;
-}
-interface UserFriend {
-  _id: string;
-  name: string;
-  image: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-const MessageBox = ({ user }: { user: User }) => {
-  const [arrivalMessage, setArrivalMessage] = useState<ArrivalMessage | null>(
-    null
-  );
-  const socket = useRef<Socket>();
+const MessageBox = ({
+  conversation,
+  friend,
+}: {
+  conversation: Conversation | null;
+  friend: User | null;
+}) => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [message, setMessage] = useState<Message[]>([]);
-  const [myFriend, setMyFriend] = useState<UserFriend>();
-  const conversation = useAppSelector(
-    (state) => state.entities.conversation.conversation
-  );
-  const conversationId = conversation?._id;
-  const userToChat = useAppSelector(
-    (state) => state.entities.userToChat.userToChat
-  );
-  const getUserToChatWith = () => {
-    const friendId = conversation?.members.find((id) => id !== user._id);
-    const friend = userToChat.find((friend) => friend._id === friendId);
-    setMyFriend(friend);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const userAuth = useAppSelector((state) => state.entities.auth.currentUser);
+
+  const sendMessage = (message: Message) => {
+    if (userAuth && friend) {
+      sendMessageSocket(userAuth._id, message.text, friend._id);
+    }
+    setMessages((prev) => [...prev, message]);
+  };
+
+  const reciveMessage = (message: Message) => {
+    setMessages((prev) => [
+      ...prev,
+      { ...message, createdAt: Date.now(), _id: nextId() },
+    ]);
+    console.log(message);
   };
 
   useEffect(() => {
-    const getMessages = async () => {
-      try {
-        if (conversationId) {
-          const res = await userRequest.get<Message[]>(
-            "/message/" + conversationId
-          );
-          setMessage(res.data);
-        }
-      } catch (error) {
-        console.error("no conv");
-      }
-    };
-    getMessages();
-    getUserToChatWith();
-  }, [conversation]);
+    reciveMessageSocket(reciveMessage);
+  }, [socket]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [message]);
-  useEffect(() => {
-    socket.current = io("http://localhost:1000");
-    socket.current.on("getMessage", (message) => {
-      setArrivalMessage({
-        senderId: message.senderId,
-        text: message.text,
-        createdAt: Date.now(),
-      });
-    });
-  }, []);
+  }, [messages]);
 
-  useEffect(() => {
-    arrivalMessage &&
-      conversation?.members.includes(arrivalMessage.senderId) &&
-      setMessage((prev) => [
-        ...prev,
-        {
-          senderId: arrivalMessage.senderId,
-          text: arrivalMessage.text,
-          createdAt: arrivalMessage.createdAt,
-          _id: "message_socket",
-        },
-      ]);
-  }, [arrivalMessage]);
-
-  const sendMessage = (message: Message) => {
-    setMessage((prev) => [...prev, message]);
-  };
   return (
     <ContainerStyle>
       {conversation ? (
         <>
           <WrapperStyle>
-            {message.map((message) =>
-              message.senderId === user._id ? (
+            {messages.map((message) =>
+              message.senderId !== userAuth?._id ? (
                 <MessageContenterStyle
                   key={message._id}
                   own="true"
                   ref={scrollRef}
                 >
                   <MessageUtilsStyle own="true">
-                    {format(message.createdAt)}
+                    {message.createdAt !== undefined &&
+                      format(message.createdAt)}
                   </MessageUtilsStyle>
                   <MessageWrapperStyle>
                     <MessageText own="true">{message.text}</MessageText>
                   </MessageWrapperStyle>
                   <AvatarStyle own="true">
-                    <Avatar alt={myFriend?.name} src={myFriend?.image} />
+                    <Avatar alt={friend?.name} src={friend?.image} />
                   </AvatarStyle>
                 </MessageContenterStyle>
               ) : (
@@ -133,22 +84,21 @@ const MessageBox = ({ user }: { user: User }) => {
                   ref={scrollRef}
                 >
                   <AvatarStyle own="false">
-                    <Avatar alt={user.name} src={user.image} />
+                    <Avatar alt={userAuth?.name} src={userAuth?.image} />
                   </AvatarStyle>
                   <MessageWrapperStyle>
                     <MessageText own="false">{message.text}</MessageText>
                   </MessageWrapperStyle>
                   <MessageUtilsStyle own="false">
-                    {format(message.createdAt)}
+                    {message.createdAt !== undefined &&
+                      format(message.createdAt)}
                   </MessageUtilsStyle>
                 </MessageContenterStyle>
               )
             )}
           </WrapperStyle>
           <MessageInput
-            conversationId={conversationId}
-            friendId={myFriend?._id}
-            socket={socket}
+            conversationId={conversation?._id}
             sendMessage={sendMessage}
           />
         </>

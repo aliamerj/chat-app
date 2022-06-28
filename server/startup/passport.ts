@@ -37,7 +37,6 @@ const verifyCallback = async (
 
 passport.use(new GoogleStrategy.Strategy(AUTH_OPTIONS, verifyCallback));
 passport.serializeUser((user: any, done) => {
-  console.log("serialize  User ID", user._id);
   done(null, user._id);
 });
 passport.deserializeUser(async (id: any, done) => {

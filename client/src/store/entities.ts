@@ -1,8 +1,4 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import conversationReducer from "./conversation.store/conversationSlice";
-import userToChatReducer from "./userToChat.store/userToChatSlice";
+import authReducer from "./auth.store/authSlice";
 
-export default combineReducers({
-  conversation: conversationReducer,
-  userToChat: userToChatReducer,
-});
+export default combineReducers({ auth: authReducer });

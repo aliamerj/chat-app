@@ -1,6 +1,8 @@
 import { Avatar } from "@mui/material";
-import { User } from "../../App";
 import { userRequest } from "../../requestMethods";
+import { SIGN_OUT, START_LOGIN } from "../../store/auth.store/authSlice";
+import { useAppDispatch } from "../../store/hooks";
+import { User } from "../../Types/Types";
 import {
   ContainerStyle,
   DashboardListStyle,
@@ -9,15 +11,18 @@ import {
 import Logo from "./utils/Logo.util";
 
 const NavBar = ({ user }: { user: User | null }) => {
+  const dispatch = useAppDispatch();
   const logout = () => {
+    dispatch(START_LOGIN());
     window.open("http://localhost:5000/auth/logout", "_self");
+    dispatch(SIGN_OUT());
   };
   return (
     <ContainerStyle>
       <Logo />
       <DashboardListStyle>
         <DashboardItemListStyle>
-          <Avatar src={user?.image} alt={user?.name} />
+          {user ? <Avatar src={user?.image} alt={user?.name} /> : null}
         </DashboardItemListStyle>
         <DashboardItemListStyle>{user?.name}</DashboardItemListStyle>
         {user ? (

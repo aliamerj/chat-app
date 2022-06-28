@@ -5,14 +5,16 @@ export const ContainerStyle = styled("div")(() => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  flexDirection: "column",
 }));
 
-export const LoginTitleStyle = styled("h1")(() => ({
-  position: "absolute",
-  top: "150px",
+export const LoginTitleStyle = styled("h1")(({ theme }) => ({
   fontFamily: "cursive",
+  [theme.breakpoints.down("lg")]: {
+    display: "none",
+  },
 }));
-export const WrapperStyle = styled("div")(() => ({
+export const WrapperStyle = styled("div")(({ theme }) => ({
   width: "50%",
   height: "75%",
   display: "flex",
@@ -21,28 +23,43 @@ export const WrapperStyle = styled("div")(() => ({
   boxShadow: "5px 5px 38px 13px rgba(0,0,0,0.54)",
   WebkitBoxShadow: "5px 5px 38px 13px rgba(0,0,0,0.54)",
   MozBoxShadow: "5px 5px 38px 13px rgba(0,0,0,0.54)",
+  [theme.breakpoints.down("md")]: {
+    width: "50%",
+    height: "90%",
+    flexDirection: "column",
+  },
 }));
 
-export const Leftstyle = styled("div")(() => ({
+export const Leftstyle = styled("div")(({ theme }) => ({
   flex: 1,
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+  [theme.breakpoints.down("md")]: {
+    padding: "10px",
+  },
 }));
-export const Rightstyle = styled("div")(() => ({
+export const Rightstyle = styled("div")(({ theme }) => ({
   flex: 1,
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+  [theme.breakpoints.down("md")]: {
+    padding: "20px",
+  },
 }));
-export const CenterStyle = styled("div")(() => ({
+export const CenterStyle = styled("div")(({ theme }) => ({
   height: "100vh",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   position: "relative",
+  [theme.breakpoints.down("md")]: {
+    width: "100%",
+    position: "relative",
+  },
 }));
-export const LineStyle = styled("div")(() => ({
+export const LineStyle = styled("div")(({ theme }) => ({
   width: "1px",
   height: "50vh",
   backgroundColor: "lightgray",
@@ -53,6 +70,10 @@ export const LineStyle = styled("div")(() => ({
   left: "0",
   right: "0",
   margin: "auto",
+  [theme.breakpoints.down("md")]: {
+    height: "0.5px",
+    width: "300px",
+  },
 }));
 export const OrStyle = styled("div")(() => ({
   border: "2px solid lightgray",
@@ -97,9 +118,10 @@ export const InputStyle = styled("input")(() => ({
 }));
 export const SubmitStyle = styled("button")(() => ({
   width: "200px",
-  backgroundColor: "LightGreen",
+  backgroundColor: "aquamarine",
   border: "none",
   padding: "15px 20px",
   borderRadius: "10px",
   fontFamily: "cursive",
+  cursor: "pointer",
 }));

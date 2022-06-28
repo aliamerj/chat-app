@@ -1,9 +1,8 @@
 import { Avatar } from "@mui/material";
 import { useEffect, useState } from "react";
-import { User } from "../../App";
 import { userRequest } from "../../requestMethods";
-import { START_CONVERSATION } from "../../store/conversation.store/conversationSlice";
-import { useAppDispatch } from "../../store/hooks";
+import { useAppSelector } from "../../store/hooks";
+import { Conversation, User } from "../../Types/Types";
 import {
   AvatarsStyle,
   ContainerStyle,
@@ -11,17 +10,24 @@ import {
   UsernameStyle,
   WrapperStyle,
 } from "../../_Styles_/usersToChat.style";
-import { Conversation } from "./LastChatUsers.component";
 const isOnline = true;
-const AllUsersToChat = ({ user }: { user: User }) => {
-  const dispatch = useAppDispatch();
+const AllUsersToChat = ({
+  setConversationHelper,
+  startNewConversationWith,
+}: {
+  setConversationHelper: (conversation: Conversation) => void;
+  startNewConversationWith: (user: User) => void;
+}) => {
+  const authUserId = useAppSelector(
+    (state) => state.entities.auth.currentUser?._id
+  );
   const [friends, setFriends] = useState<User[]>([]);
 
   useEffect(() => {
     const getAllUsers = async () => {
       try {
         const res = await userRequest.get<User[]>("/user");
-        const allUser = res.data.filter((friend) => friend._id !== user._id);
+        const allUser = res.data.filter((friend) => friend._id !== authUserId);
         setFriends(allUser);
       } catch (error) {
         console.log(error);
@@ -30,16 +36,13 @@ const AllUsersToChat = ({ user }: { user: User }) => {
     getAllUsers();
   }, []);
 
-  const setNewConversation = async (friend: User) => {
-    try {
-      const res = await userRequest.post<Conversation>("/conversation", {
-        senderId: user._id,
-        receiverId: friend._id,
-      });
-      dispatch(START_CONVERSATION(res.data));
-    } catch (error) {
-      console.log(error);
-    }
+  const handelUserToChatWith = async (user: User) => {
+    const res = await userRequest.post<Conversation>("/conversation", {
+      senderId: authUserId,
+      receiverId: user._id,
+    });
+    setConversationHelper(res.data);
+    startNewConversationWith(user);
   };
 
   return (
@@ -48,7 +51,7 @@ const AllUsersToChat = ({ user }: { user: User }) => {
         return (
           <WrapperStyle
             key={friend._id}
-            onClick={() => setNewConversation(friend)}
+            onClick={() => handelUserToChatWith(friend)}
           >
             <AvatarsStyle>
               {isOnline ? (

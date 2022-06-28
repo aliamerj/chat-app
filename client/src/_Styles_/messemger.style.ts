@@ -1,17 +1,21 @@
 import { styled } from "@mui/material/styles";
 
 export const ContainerStyle = styled("div")(() => ({
-  height: "85%",
+  height: "75hv",
+  padding: "auto",
+  margin: "auto",
 }));
 export const WrapperStyle = styled("div")(() => ({
   display: "flex",
   justifyContent: "space-between",
   flexWrap: "wrap",
 }));
-export const LeftStyle = styled("div")(() => ({
-  flex: 1,
+export const LeftStyle = styled("div")(({ theme }) => ({
+  minWidth: "20%",
   borderRight: "4px solid #99ccff",
+  lineHeight: "20px",
 }));
+
 export const ItemsContainerStyle = styled("div")(() => ({
   height: "100%",
   padding: "10px",
@@ -27,12 +31,19 @@ export const SearchFriendStyle = styled("input")(() => ({
   fontSize: "15px",
 }));
 
-export const CenterStyle = styled("div")(() => ({
-  flex: 2.5,
+export const CenterStyle = styled("div")(({ theme }) => ({
+  minWidth: "50%",
+  [theme.breakpoints.down("md")]: {
+    minWidth: "100%",
+  },
 }));
-export const RightStyle = styled("div")(() => ({
-  flex: 1,
+export const RightStyle = styled("div")(({ theme }) => ({
+  minWidth: "22.5%",
   borderLeft: "4px solid #99ccff",
+  [theme.breakpoints.down("md")]: {
+    borderLeft: "none",
+    borderRight: "4px solid #99ccff",
+  },
 }));
 export const LastChatTitleStyle = styled("p")(() => ({
   borderBottom: "4px solid #5F9EA0",

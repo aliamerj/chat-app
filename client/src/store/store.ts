@@ -1,8 +1,22 @@
 import { configureStore } from "@reduxjs/toolkit";
-import reducers from "./reducers";
+import reducerPersis from "./persist/persis.storge";
+import {
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 
 const store = configureStore({
-  reducer: reducers,
+  reducer: reducerPersis,
+  middleware: (getDefaultMiddleware: any) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 export default store;

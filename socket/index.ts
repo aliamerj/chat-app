@@ -36,11 +36,12 @@ const getUser: (userId: string) => User | null = (receiverId: string) => {
 // connection
 io.on("connection", (socket: Socket) => {
   console.log("socket connection.....");
-  io.emit("welcome", "using socket io :)");
   socket.on("sendUserId", (userId) => {
     addUsers(userId, socket.id);
+    console.log("users :", users);
     io.emit("getUsers", users);
   });
+
   // disconnect
   socket.on("disconnect", () => {
     console.log("somebody disconnected");
@@ -52,7 +53,7 @@ io.on("connection", (socket: Socket) => {
   socket.on("sendMessage", ({ senderId, receiverId, text }: SendMessage) => {
     const user = getUser(receiverId);
     if (user)
-      io.to(user?.socketId).emit("getMessage", {
+      io.to(user.socketId).emit("getMessage", {
         senderId,
         text,
       });
