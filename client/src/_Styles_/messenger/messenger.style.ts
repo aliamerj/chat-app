@@ -1,6 +1,10 @@
 import { styled } from "@mui/material/styles";
 
-export const ContainerStyle = styled("div")(() => ({
+export const ContainerStyle = styled("div")(({ theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
+
   height: "75hv",
   padding: "auto",
   margin: "auto",
@@ -10,7 +14,7 @@ export const WrapperStyle = styled("div")(() => ({
   justifyContent: "space-between",
   flexWrap: "wrap",
 }));
-export const LeftStyle = styled("div")(({ theme }) => ({
+export const LeftStyle = styled("div")(() => ({
   minWidth: "20%",
   borderRight: "4px solid #99ccff",
   lineHeight: "20px",

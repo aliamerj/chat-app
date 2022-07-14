@@ -1,12 +1,13 @@
 import { styled } from "@mui/material/styles";
 export const ContainerStyle = styled("div")(() => ({
   height: "100%",
+  width: "100%",
 }));
 export const WrapperStyle = styled("div")(() => ({
   display: "flex",
   flexDirection: "column",
   marginTop: "15px",
-  height: "480px",
+  height: "440px",
   overflowY: "scroll",
 }));
 
@@ -51,4 +52,10 @@ export const StartChatStyle = styled("div")(() => ({
   justifyContent: "center",
   userSelect: "none",
   cursor: "default",
+}));
+export const HeaderContainerStyle = styled("div")(() => ({
+  display: "flex",
+  alignItems: "center",
+  borderBottom: "4px solid #99ccff",
+  backgroundColor: "#f2f2f2",
 }));

@@ -12,6 +12,7 @@ import {
   MessageWrapperStyle,
   AvatarStyle,
   StartChatStyle,
+  HeaderContainerStyle,
 } from "../../_Styles_/messenger/messageBox.style";
 import MessageInput from "./MessageInput.component";
 import { Conversation, Message, User } from "../../Types/Types";
@@ -20,13 +21,20 @@ import {
   sendMessageSocket,
   socket,
 } from "./Utils/socketClient";
+import {
+  AvatarsStyle,
+  StyledBadgeStyle,
+  UsernameStyle,
+} from "../../_Styles_/messenger/usersToChat.style";
 
 const MessageBox = ({
   conversation,
   friend,
+  isOnlineFriends,
 }: {
   conversation: Conversation | null;
   friend: User | null;
+  isOnlineFriends: boolean;
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -46,7 +54,6 @@ const MessageBox = ({
       ...prev,
       { ...message, createdAt: Date.now(), _id: nextId() },
     ]);
-    console.log(message);
   };
 
   useEffect(() => {
@@ -61,9 +68,26 @@ const MessageBox = ({
     <ContainerStyle>
       {conversation ? (
         <>
+          <HeaderContainerStyle>
+            <AvatarsStyle>
+              {isOnlineFriends ? (
+                <StyledBadgeStyle
+                  overlap="circular"
+                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                  variant="dot"
+                >
+                  <Avatar alt={friend?.name} src={friend?.image} />
+                </StyledBadgeStyle>
+              ) : (
+                <Avatar alt={friend?.name} src={friend?.image} />
+              )}
+            </AvatarsStyle>
+            <UsernameStyle>{friend?.name}</UsernameStyle>
+          </HeaderContainerStyle>
           <WrapperStyle>
             {messages.map((message) =>
-              message.senderId !== userAuth?._id ? (
+              message.senderId !== userAuth?._id &&
+              message.conversationId === conversation._id ? (
                 <MessageContenterStyle
                   key={message._id}
                   own="true"
@@ -80,7 +104,7 @@ const MessageBox = ({
                     <Avatar alt={friend?.name} src={friend?.image} />
                   </AvatarStyle>
                 </MessageContenterStyle>
-              ) : (
+              ) : message.conversationId === conversation._id ? (
                 <MessageContenterStyle
                   key={message._id}
                   own="false"
@@ -97,7 +121,7 @@ const MessageBox = ({
                       format(message.createdAt)}
                   </MessageUtilsStyle>
                 </MessageContenterStyle>
-              )
+              ) : null
             )}
           </WrapperStyle>
           <MessageInput

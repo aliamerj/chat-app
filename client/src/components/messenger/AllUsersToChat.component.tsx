@@ -10,16 +10,18 @@ import {
   UsernameStyle,
   WrapperStyle,
 } from "../../_Styles_/messenger/usersToChat.style";
-import { getOnlineUser, socket } from "./Utils/socketClient";
+import { getOnlineUser } from "./Utils/socketClient";
 
 const AllUsersToChat = ({
   setConversationHelper,
   startNewConversationWith,
   searchInput,
+  isFriendOnlineHelper,
 }: {
   setConversationHelper: (conversation: Conversation) => void;
   startNewConversationWith: (user: User) => void;
   searchInput: string;
+  isFriendOnlineHelper: (state: boolean) => void;
 }) => {
   const authUserId = useAppSelector(
     (state) => state.entities.auth.currentUser?._id
@@ -53,6 +55,9 @@ const AllUsersToChat = ({
     });
     setConversationHelper(res.data);
     startNewConversationWith(user);
+    if (onlineFriends.includes(user._id)) {
+      isFriendOnlineHelper(true);
+    }
   };
   return (
     <ContainerStyle>
