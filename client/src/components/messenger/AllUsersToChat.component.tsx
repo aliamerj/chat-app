@@ -17,11 +17,13 @@ const AllUsersToChat = ({
   startNewConversationWith,
   searchInput,
   isFriendOnlineHelper,
+  setPageHerlper,
 }: {
   setConversationHelper: (conversation: Conversation) => void;
   startNewConversationWith: (user: User) => void;
   searchInput: string;
   isFriendOnlineHelper: (state: boolean) => void;
+  setPageHerlper?: (page: number) => void;
 }) => {
   const authUserId = useAppSelector(
     (state) => state.entities.auth.currentUser?._id
@@ -55,6 +57,7 @@ const AllUsersToChat = ({
     });
     setConversationHelper(res.data);
     startNewConversationWith(user);
+    if (setPageHerlper) setPageHerlper(1);
     if (onlineFriends.includes(user._id)) {
       isFriendOnlineHelper(true);
     }

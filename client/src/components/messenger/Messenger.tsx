@@ -30,6 +30,9 @@ const Messenger = () => {
   const isFriendOnlineHelper = (state: boolean) => {
     setIsFriendOnline(state);
   };
+  const setPageHerlper = (page: number) => {
+    setPage(page);
+  };
 
   return (
     <>
@@ -72,6 +75,7 @@ const Messenger = () => {
                 startNewConversationWith={startNewConversationWith}
                 searchInput={inputSearch}
                 isFriendOnlineHelper={isFriendOnlineHelper}
+                setPageHerlper={setPageHerlper}
               />
             </styles.ItemsContainerStyle>
           </styles.LeftStyle>
