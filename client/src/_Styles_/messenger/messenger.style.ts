@@ -1,11 +1,11 @@
 import { styled } from "@mui/material/styles";
 
 export const ContainerStyle = styled("div")(({ theme }) => ({
-  [theme.breakpoints.down("md")]: {
+  [theme.breakpoints.down("lg")]: {
     display: "none",
   },
 
-  height: "75hv",
+  height: "100%",
   padding: "auto",
   margin: "auto",
 }));

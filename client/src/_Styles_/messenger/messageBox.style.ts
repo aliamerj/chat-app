@@ -3,11 +3,14 @@ export const ContainerStyle = styled("div")(() => ({
   height: "100%",
   width: "100%",
 }));
-export const WrapperStyle = styled("div")(() => ({
+export const WrapperStyle = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   marginTop: "15px",
   height: "440px",
+  [theme.breakpoints.down("lg")]: {
+    height: "390px",
+  },
   overflowY: "scroll",
 }));
 
@@ -37,6 +40,7 @@ export const MessageWrapperStyle = styled("div")(() => ({
   display: "flex",
   alignContent: "center",
   justifyContent: "flex-end",
+  margin: "7px",
 }));
 export const AvatarStyle = styled("div")(({ own }: { own: string }) => ({
   margin: own === "true" ? "auto 10px 0 7px" : "0 7px",

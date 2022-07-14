@@ -5,19 +5,14 @@ export const ContainerStyle = styled("div")(() => ({
   display: "flex",
   justifyContent: "space-between",
 }));
-export const TextareaStyle = styled("textarea")(({ theme }) => ({
-  width: "105vh",
-  [theme.breakpoints.down("md")]: {
-    width: "60vh",
-  },
-
+export const TextareaStyle = styled("textarea")(() => ({
+  width: "90%",
   padding: "10px",
   resize: "none",
 }));
 
-export const SendButtonStyle = styled("button")(({ theme }) => ({
-  width: "75px",
-
+export const SendButtonStyle = styled("button")(() => ({
+  width: "10%",
   border: "none",
   borderRadius: "5px",
   cursor: "pointer",

@@ -46,13 +46,26 @@ const MessageBox = ({
     if (userAuth && friend) {
       sendMessageSocket(userAuth._id, message.text, friend._id);
     }
-    setMessages((prev) => [...prev, message]);
+    setMessages((prev) => [
+      ...prev,
+      {
+        ...message,
+        createdAt: Date.now(),
+        _id: nextId(),
+        conversationId: conversation?._id,
+      },
+    ]);
   };
 
   const reciveMessage = (message: Message) => {
     setMessages((prev) => [
       ...prev,
-      { ...message, createdAt: Date.now(), _id: nextId() },
+      {
+        ...message,
+        createdAt: Date.now(),
+        _id: nextId(),
+        conversationId: conversation?._id,
+      },
     ]);
   };
 
@@ -66,7 +79,7 @@ const MessageBox = ({
 
   return (
     <ContainerStyle>
-      {conversation ? (
+      {conversation && friend && userAuth ? (
         <>
           <HeaderContainerStyle>
             <AvatarsStyle>
@@ -87,7 +100,7 @@ const MessageBox = ({
           <WrapperStyle>
             {messages.map((message) =>
               message.senderId !== userAuth?._id &&
-              message.conversationId === conversation._id ? (
+              message.senderId === friend?._id ? (
                 <MessageContenterStyle
                   key={message._id}
                   own="true"
@@ -104,7 +117,9 @@ const MessageBox = ({
                     <Avatar alt={friend?.name} src={friend?.image} />
                   </AvatarStyle>
                 </MessageContenterStyle>
-              ) : message.conversationId === conversation._id ? (
+              ) : message.senderId === userAuth?._id &&
+                conversation.members.includes(friend?._id) &&
+                conversation.members.includes(userAuth?._id) ? (
                 <MessageContenterStyle
                   key={message._id}
                   own="false"
