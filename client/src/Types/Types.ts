@@ -27,3 +27,7 @@ export interface Conversation {
   members: string[];
   updatedAt: string;
 }
+export interface UserSoket {
+  userId: string;
+  socketId: string;
+}

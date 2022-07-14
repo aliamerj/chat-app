@@ -11,6 +11,7 @@ import {
   MessageUtilsStyle,
   MessageWrapperStyle,
   AvatarStyle,
+  StartChatStyle,
 } from "../../_Styles_/messenger/messageBox.style";
 import MessageInput from "./MessageInput.component";
 import { Conversation, Message, User } from "../../Types/Types";
@@ -29,7 +30,9 @@ const MessageBox = ({
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<Message[]>([]);
-  const userAuth = useAppSelector((state) => state.entities.auth.currentUser);
+  const userAuth: User | null = useAppSelector(
+    (state) => state.entities.auth.currentUser
+  );
 
   const sendMessage = (message: Message) => {
     if (userAuth && friend) {
@@ -103,7 +106,7 @@ const MessageBox = ({
           />
         </>
       ) : (
-        <span>start chatting </span>
+        <StartChatStyle>Start New Conversation </StartChatStyle>
       )}
     </ContainerStyle>
   );

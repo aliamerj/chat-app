@@ -1,13 +1,10 @@
 import { connect } from "socket.io-client";
-import { Message, User } from "../../../Types/Types";
+import { Message, User, UserSoket } from "../../../Types/Types";
 
 export const socket = connect("http://localhost:1000");
 
 export const userJoin = (user: User) => {
   socket.emit("sendUserId", user._id);
-  socket.on("getUsers", (data) => {
-    console.log(data);
-  });
 };
 export const sendMessageSocket = (
   senderId: string,
@@ -25,7 +22,13 @@ type ReciveMessageSocket = (reciveMessage: ReciveMessage) => void;
 
 export const reciveMessageSocket: ReciveMessageSocket = (reciveMessage) => {
   socket.on("getMessage", (data: Message) => {
-    console.log("message", data);
     reciveMessage(data);
+  });
+};
+type SetOnlineUser = (user: UserSoket[]) => void;
+type GetOnlineUser = (setOnlineUser: SetOnlineUser) => void;
+export const getOnlineUser: GetOnlineUser = (setOnlineUser) => {
+  socket.on("getUsers", (data: UserSoket[]) => {
+    setOnlineUser(data);
   });
 };

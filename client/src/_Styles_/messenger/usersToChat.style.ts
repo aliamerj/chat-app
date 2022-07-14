@@ -7,6 +7,7 @@ export const ContainerStyle = styled("div")(() => ({
 export const WrapperStyle = styled("div")(() => ({
   margin: "12px 0",
   display: "flex",
+  alignItems: "center",
   cursor: "pointer",
   borderBottom: "0.2px solid green",
   ":hover": {

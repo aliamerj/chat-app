@@ -38,7 +38,6 @@ io.on("connection", (socket: Socket) => {
   console.log("socket connection.....");
   socket.on("sendUserId", (userId) => {
     addUsers(userId, socket.id);
-    console.log("users :", users);
     io.emit("getUsers", users);
   });
 

@@ -40,3 +40,15 @@ export const MessageWrapperStyle = styled("div")(() => ({
 export const AvatarStyle = styled("div")(({ own }: { own: string }) => ({
   margin: own === "true" ? "auto 10px 0 7px" : "0 7px",
 }));
+
+export const StartChatStyle = styled("div")(() => ({
+  minHeight: "79vh",
+  fontWeight: "bold",
+  fontSize: "40px",
+  opacity: "0.5",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  userSelect: "none",
+  cursor: "default",
+}));
