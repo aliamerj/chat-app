@@ -10,6 +10,12 @@ const errorMiddleware = (
     res
       .status(400)
       .json("The email address is already associated with another Account");
-  }
-  res.status(500).json(`Sorry, something went wrong. please try agan later. `);
+  } else if (err.status === 404) {
+    res.status(404).json(`not found page :(`);
+  } else
+    res
+      .status(500)
+      .json(`Sorry, something went wrong. please try agan later. `);
 };
+
+export default errorMiddleware;

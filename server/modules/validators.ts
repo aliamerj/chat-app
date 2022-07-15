@@ -1,21 +1,19 @@
 import Joi from "joi";
-import mongoose from "mongoose";
+import mongoose, { SchemaDefinitionProperty } from "mongoose";
 import { Conversation, Message, User } from "./_modules.types";
 
 export const validateConversation = (conversation: Conversation) => {
   const schema = Joi.object({
-    members: Joi.array()
-      .items(typeof mongoose.Schema.Types.ObjectId)
-      .length(2)
-      .required(),
+    senderId: Joi.string().length(24).message("invalid id").required(),
+    receiverId: Joi.string().length(24).message("invalid id").required(),
   });
   return schema.validate(conversation);
 };
 export const validateMessage = (message: Message) => {
   const schema = Joi.object({
-    senderId: Joi.valid(typeof mongoose.Schema.Types.ObjectId).required(),
+    senderId: Joi.string().length(24).message("invalid id").required(),
     text: Joi.string().required(),
-    conversationId: Joi.valid(typeof mongoose.Schema.Types.ObjectId).required(),
+    conversationId: Joi.string().length(24).message("invalid id").required(),
   });
   return schema.validate(message);
 };
