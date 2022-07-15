@@ -37,7 +37,7 @@ const MessageInput = ({
 
   const postNewMessage = async (message: Message) => {
     try {
-      await userRequest.post<Message>("/message/", message);
+      await userRequest.post<Message>("/message", message);
       setNewMessage("");
     } catch (error) {
       console.log(error);

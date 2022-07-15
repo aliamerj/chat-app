@@ -26,9 +26,9 @@ export const addNewConversationOrGetOld = async (
 };
 
 // so helpfull
-// export const getUserConversation = async (req: Request, res: Response) => {
-//   const conversation = await Conversation.find({
-//     members: { $in: [req.params.userId] },
-//   });
-//   return res.status(200).json(conversation);
-// };
+export const getUserConversation = async (req: Request, res: Response) => {
+  const conversation = await Conversation.find({
+    members: { $in: [req.params.userId] },
+  });
+  return res.status(200).json(conversation);
+};
