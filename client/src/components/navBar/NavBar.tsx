@@ -1,5 +1,4 @@
 import { Avatar } from "@mui/material";
-import { userRequest } from "../../requestMethods";
 import { SIGN_OUT, START_LOGIN } from "../../store/auth.store/authSlice";
 import { useAppDispatch } from "../../store/hooks";
 import { User } from "../../Types/Types";

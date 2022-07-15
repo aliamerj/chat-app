@@ -48,7 +48,7 @@ const AllUsersToChat = ({
       }
     };
     getAllUsers();
-  }, []);
+  }, [authUserId]);
 
   const handelUserToChatWith = async (user: User) => {
     const res = await userRequest.post<Conversation>("/conversation", {
@@ -67,7 +67,9 @@ const AllUsersToChat = ({
       {friends
         .filter((friend) => {
           if (searchInput === "") return friend;
-          if (friend.name.toLowerCase().includes(searchInput.toLowerCase()))
+          else if (
+            friend.name.toLowerCase().includes(searchInput.toLowerCase())
+          )
             return friend;
         })
         .map((friend) => {

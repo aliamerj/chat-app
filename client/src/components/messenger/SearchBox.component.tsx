@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { SearchFriendStyle } from "../../_Styles_/messenger/messenger.style";
 
 const SearchBoxComponent = ({

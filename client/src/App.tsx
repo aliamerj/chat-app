@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import LoginComponent from "./components/auth/Login.component";
 import Messenger from "./components/messenger/Messenger";
@@ -27,7 +27,7 @@ function App() {
       }
     };
     getUser();
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
