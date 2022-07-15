@@ -1,11 +1,7 @@
-import mongoose, { SchemaDefinitionProperty } from "mongoose";
-interface MessageType {
-  conversationId: SchemaDefinitionProperty<mongoose.Types.ObjectId>;
-  senderId: SchemaDefinitionProperty<mongoose.Types.ObjectId>;
-  text: string;
-}
+import mongoose from "mongoose";
+import { Message } from "./_modules.types";
 
-const MessageSchema = new mongoose.Schema<MessageType>(
+const MessageSchema = new mongoose.Schema<Message>(
   {
     conversationId: {
       type: mongoose.Types.ObjectId,
@@ -20,9 +16,10 @@ const MessageSchema = new mongoose.Schema<MessageType>(
     text: {
       type: String,
       default: " ",
+      required: true,
     },
   },
   { timestamps: true }
 );
 
-export default mongoose.model<MessageType>("Message", MessageSchema);
+export default mongoose.model<Message>("Message", MessageSchema);

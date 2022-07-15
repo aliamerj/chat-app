@@ -4,7 +4,9 @@ import GoogleStrategy, {
   Profile,
   VerifyCallback,
 } from "passport-google-oauth20";
-import User from "../modules/users.module";
+import UserModel from "../modules/users.module";
+import { validateUsers } from "../modules/validators";
+import { User } from "../modules/_modules.types";
 
 const AUTH_OPTIONS = {
   clientID: process.env.GOOGLE_CLIENT_ID as string,
@@ -17,15 +19,21 @@ const verifyCallback = async (
   profile: Profile,
   done: VerifyCallback
 ): Promise<void> => {
-  const user = await User.findOne({ email: profile.emails?.[0].value });
+  const user = await UserModel.findOne({ email: profile.emails?.[0].value });
   if (user) done(null, user);
   else {
     if (profile.emails?.[0].verified) {
-      const newUser = new User({
+      const userPayload: User = {
         name: profile.displayName,
         email: profile.emails?.[0].value,
         image: profile.photos?.[0].value,
-      });
+      };
+      const { error } = validateUsers(userPayload);
+      if (error) {
+        done(error);
+      }
+
+      const newUser = new UserModel(userPayload);
       await newUser.save();
       console.log("new user", newUser);
       done(null, newUser);
@@ -40,6 +48,6 @@ passport.serializeUser((user: any, done) => {
   done(null, user._id);
 });
 passport.deserializeUser(async (id: any, done) => {
-  const user = await User.findById(id);
+  const user = await UserModel.findById(id);
   done(null, user);
 });

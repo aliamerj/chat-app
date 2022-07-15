@@ -1,9 +1,7 @@
-import mongoose, { SchemaDefinitionProperty } from "mongoose";
+import mongoose from "mongoose";
+import { Conversation } from "./_modules.types";
 
-interface conversationType {
-  members: SchemaDefinitionProperty<mongoose.Types.ObjectId[]>;
-}
-const ConversationSchema = new mongoose.Schema<conversationType>(
+const ConversationSchema = new mongoose.Schema<Conversation>(
   {
     members: {
       type: Array,
@@ -13,7 +11,4 @@ const ConversationSchema = new mongoose.Schema<conversationType>(
   { timestamps: true }
 );
 
-export default mongoose.model<conversationType>(
-  "Conversation",
-  ConversationSchema
-);
+export default mongoose.model<Conversation>("Conversation", ConversationSchema);

@@ -1,12 +1,8 @@
 import mongoose from "mongoose";
-interface UserType {
-  googleId: string;
-  name: string;
-  image?: string;
-  email: string;
-}
+import { User } from "./_modules.types";
+const { isEmail } = require("validator/validator");
 
-const UserSchema = new mongoose.Schema<UserType>(
+const UserSchema = new mongoose.Schema<User>(
   {
     name: {
       type: String,
@@ -15,6 +11,11 @@ const UserSchema = new mongoose.Schema<UserType>(
     email: {
       type: String,
       required: true,
+      index: true,
+      unique: true,
+      sparse: true,
+      minlength: 5,
+      validate: [isEmail, "invalid email"],
     },
     image: {
       type: String,
@@ -24,4 +25,4 @@ const UserSchema = new mongoose.Schema<UserType>(
   { timestamps: true }
 );
 
-export default mongoose.model<UserType>("User", UserSchema);
+export default mongoose.model<User>("User", UserSchema);

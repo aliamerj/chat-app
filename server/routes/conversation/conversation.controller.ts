@@ -30,14 +30,3 @@ export const getUserConversation = async (req: Request, res: Response) => {
     return res.status(500).json(err);
   }
 };
-
-export const conversationTowUsers = async (req: Request, res: Response) => {
-  try {
-    const conversation = await Conversation.findOne({
-      members: { $all: [req.params.firstUserId, req.params.secondUserId] },
-    });
-    res.status(200).json(conversation);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-};
