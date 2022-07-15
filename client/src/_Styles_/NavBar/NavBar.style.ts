@@ -22,3 +22,10 @@ export const DashboardItemListStyle = styled("li")(() => ({
   fontFamily: "Helvetica",
   cursor: "pointer",
 }));
+
+export const UsernameStyle = styled('span')(({theme}) => ({
+  [theme.breakpoints.down('md')]:{
+    display: "none",
+  }
+
+}))

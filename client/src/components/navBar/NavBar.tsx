@@ -7,6 +7,7 @@ import {
   ContainerStyle,
   DashboardListStyle,
   DashboardItemListStyle,
+  UsernameStyle,
 } from "../../_Styles_/NavBar/NavBar.style";
 import Logo from "./utils/Logo.util";
 
@@ -24,7 +25,9 @@ const NavBar = ({ user }: { user: User | null }) => {
         <DashboardItemListStyle>
           {user ? <Avatar src={user?.image} alt={user?.name} /> : null}
         </DashboardItemListStyle>
-        <DashboardItemListStyle>{user?.name}</DashboardItemListStyle>
+        <DashboardItemListStyle>
+          <UsernameStyle>{user?.name}</UsernameStyle>
+        </DashboardItemListStyle>
         {user ? (
           <DashboardItemListStyle onClick={logout}>
             Logout

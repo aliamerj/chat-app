@@ -11,6 +11,7 @@ import RestoreIcon from "@mui/icons-material/Restore";
 
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 import { ContainerMobileStyle } from "../../_Styles_/mobile/messenger.style";
+import LastChatComponent from "./LastChat.component";
 
 const Messenger = () => {
   const [conversation, setConversation] = useState<Conversation | null>(null);
@@ -61,6 +62,11 @@ const Messenger = () => {
           <styles.RightStyle>
             <styles.ItemsContainerStyle>
               <styles.LastChatTitleStyle>Last Chat</styles.LastChatTitleStyle>
+              <LastChatComponent
+                setConversationHelper={setConversationHandler}
+                startNewConversationWith={startNewConversationWith}
+                isFriendOnlineHelper={isFriendOnlineHelper}
+              />
             </styles.ItemsContainerStyle>
           </styles.RightStyle>
         </styles.WrapperStyle>
@@ -93,6 +99,11 @@ const Messenger = () => {
           <styles.RightStyle>
             <styles.ItemsContainerStyle>
               <styles.LastChatTitleStyle>Last Chat</styles.LastChatTitleStyle>
+              <LastChatComponent
+                setConversationHelper={setConversationHandler}
+                startNewConversationWith={startNewConversationWith}
+                isFriendOnlineHelper={isFriendOnlineHelper}
+              />
             </styles.ItemsContainerStyle>
           </styles.RightStyle>
         ) : null}
