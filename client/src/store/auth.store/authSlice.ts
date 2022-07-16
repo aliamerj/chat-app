@@ -21,21 +21,27 @@ const authSlice = createSlice({
       state.isFetching = true;
     },
     SUCCESS_LOGIN: (state, action: PayloadAction<User>) => {
-      state.isFetching = false;
       state.currentUser = action.payload;
     },
     FAILURE_LOGIN: (state, action: PayloadAction<null | string>) => {
-      state.isFetching = false;
       state.errorMessage = action.payload;
     },
     SIGN_OUT: (state) => {
       state.currentUser = null;
       storage.removeItem("root");
     },
+    FINASH_LOGIN: (state) => {
+      state.isFetching = false;
+    },
   },
 });
 
-export const { SUCCESS_LOGIN, START_LOGIN, FAILURE_LOGIN, SIGN_OUT } =
-  authSlice.actions;
+export const {
+  SUCCESS_LOGIN,
+  START_LOGIN,
+  FAILURE_LOGIN,
+  SIGN_OUT,
+  FINASH_LOGIN,
+} = authSlice.actions;
 
 export default authSlice.reducer;

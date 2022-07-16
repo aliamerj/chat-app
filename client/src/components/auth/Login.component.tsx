@@ -17,8 +17,15 @@ import {
   WrapperInterStyle,
   WrapperStyle,
 } from "../../_Styles_/login.style/loginPage.style";
+import { START_LOGIN } from "../../store/auth.store/authSlice";
+import { useAppDispatch } from "../../store/hooks";
 
 const LoginComponent = () => {
+  const dispatch = useAppDispatch();
+  const loginWithGoogle = () => {
+    dispatch(START_LOGIN());
+    window.open("http://localhost:5000/auth/google", "_self");
+  };
   return (
     <ContainerStyle>
       <WrapperStyle
@@ -33,7 +40,7 @@ const LoginComponent = () => {
               <FacebookStyle src="https://raw.githubusercontent.com/safak/youtube/react-social-login/client/src/img/facebook.png" />
               Facebook
             </FacebookButton>
-            <GoogleButton href="http://localhost:5000/auth/google">
+            <GoogleButton onClick={() => loginWithGoogle()}>
               <ImageGoogleStyle alt="GOOGLE" src={Google} />
               Google
             </GoogleButton>

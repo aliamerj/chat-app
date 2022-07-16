@@ -28,7 +28,7 @@ const NavBar = ({ user }: { user: User | null }) => {
           <UsernameStyle>{user?.name}</UsernameStyle>
         </DashboardItemListStyle>
         {user ? (
-          <DashboardItemListStyle onClick={logout}>
+          <DashboardItemListStyle onClick={() => logout()}>
             Logout
           </DashboardItemListStyle>
         ) : null}
