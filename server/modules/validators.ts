@@ -11,9 +11,11 @@ export const validateConversation = (conversation: Conversation) => {
 };
 export const validateMessage = (message: Message) => {
   const schema = Joi.object({
+    _id: Joi.string().required(),
     senderId: Joi.string().length(24).message("invalid id").required(),
     text: Joi.string().required(),
     conversationId: Joi.string().length(24).message("invalid id").required(),
+    createdAt: Joi.number().required(),
   });
   return schema.validate(message);
 };

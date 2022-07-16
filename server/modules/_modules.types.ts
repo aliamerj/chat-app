@@ -7,11 +7,11 @@ export interface Conversation {
   updatedAt?: string;
 }
 export interface Message {
-  _id?: string;
+  _id: string;
   senderId: SchemaDefinitionProperty<mongoose.Types.ObjectId>;
   text: string;
   conversationId: SchemaDefinitionProperty<mongoose.Types.ObjectId>;
-  createdAt?: number | string;
+  createdAt: number | string;
 }
 export interface User {
   _id?: SchemaDefinitionProperty<mongoose.Types.ObjectId>;
