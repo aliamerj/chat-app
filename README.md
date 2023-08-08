@@ -7,9 +7,17 @@ yarn add express-async-errors dotenv express cors cookie-parser helmet config
 It's a full-stack chat website ( Realtime ) .
 To use this app , first of all, you need to login with Google { Social authentication }, and then you can see other users that you have had conversations with. In the other column, you can search for somebody to chat with . Also, you can see who is online now . The app is so responsive and smooth.
 
+
+![Project Flux Task](https://github.com/aliamerj/chat-app/assets/76897266/cf23f8e5-ab2e-45e0-a768-fcbd2e1bd9d8)
+
+
+
+
+
 ![project file](https://i.ibb.co/fpcgj5R/p-2.png)
 
 
 
 # login page 
 ![login page](https://i.ibb.co/5TjjhF4/Screenshot-2022-07-26-at-18-35-27-React-App.png)
+
